@@ -101,6 +101,16 @@ public class BonsaiAccountTest {
   }
 
   @Test
+  void unreadableCodeShouldThrowWithoutAssertionsEnabled() {
+    final BonsaiCodeCache codeCache = new BonsaiCodeCache();
+    final Hash codeHash = Hash.hash(Bytes.fromHexString("0x5b00"));
+
+    assertThatThrownBy(() -> contract(unreadableWorldView(), codeHash, codeCache).getCode())
+        .isExactlyInstanceOf(MerkleTrieException.class);
+    assertThat(codeCache.getIfPresent(codeHash)).isNull();
+  }
+
+  @Test
   void unreadableCodeShouldThrowThroughUpdateTrackingAccountAndNotBeCached() {
     final BonsaiCodeCache codeCache = new BonsaiCodeCache();
     final Hash codeHash = Hash.hash(Bytes.fromHexString("0x5b00"));

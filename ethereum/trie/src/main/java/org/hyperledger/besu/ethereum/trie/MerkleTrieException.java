@@ -59,9 +59,7 @@ public class MerkleTrieException extends RuntimeException {
   }
 
   /**
-   * Checks that the code of a non-empty code hash was found. Meant to be called from an {@code
-   * assert}: it throws instead of returning false, so with assertions enabled the failure is a
-   * local storage error rather than an {@link AssertionError}.
+   * Checks that the code of a non-empty code hash was found.
    *
    * @param address the account the code belongs to
    * @param codeHash the account's code hash

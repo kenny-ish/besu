@@ -298,8 +298,8 @@ public class ForestMutableWorldState implements MutableWorldState {
         return Bytes.EMPTY;
       }
       final Optional<Bytes> code = worldStateKeyValueStorage.getCode(codeHash);
-      // a storage fault, not empty code; asserted so that nodes without -ea skip the check
-      assert MerkleTrieException.checkCodeFound(address, codeHash, code.isPresent());
+      // A storage fault is not empty code. Do not let a missing code blob change execution.
+      MerkleTrieException.checkCodeFound(address, codeHash, code.isPresent());
       return code.orElse(Bytes.EMPTY);
     }
 
